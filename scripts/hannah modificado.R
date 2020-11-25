@@ -20,7 +20,6 @@ setwd("~/Crowned/EnvironmentalData/Future/ssp585/2080_2100/")
 projectionList <- list.files(pattern = ".asc");
 proj.st <- stack(projectionList);
 crs(proj.st) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
-plot(proj.st)
 
 names(proj.st)=names(envt.st)
 
@@ -31,12 +30,13 @@ bmData <- BIOMOD_FormatingData(resp.var = crowned[,3],
                                expl.var = envt.st,
                                PA.nb.rep=1
 );
-#Setting up Maxent run
 
+#Download Maxent na pasta correta
 utils::download.file(url = "https://raw.githubusercontent.com/mrmaxent/Maxent/master/ArchivedReleases/3.3.3k/maxent.jar", 
                      destfile = paste0(system.file("java", package = "dismo"), 
                                        "/maxent.jar"), mode = "wb")
 
+#Setting up Maxent run
 myBiomodOption <- Print_Default_ModelingOptions();
 myBiomodOption@MAXENT.Phillips$path_to_maxent.jar = paste(system.file(package="dismo"), "/java", sep='');
 myBiomodOption@MAXENT.Phillips$memory_allocated = 2048; #Allocates 2048 MB/2 GB of memory to modeling
@@ -80,6 +80,7 @@ myBiomodProjPres <- BIOMOD_Projection(modeling.output = myMaxentModel,
 
 mod_projPres <- get_predictions(myBiomodProjPres);
 presentResult <- calc(mod_projPres,fun = median); #Choose whatever descriptive statistic you'd like
+plot(presentResult, main = "Presente - Griseotyrannus Aurantioatrocristatus");
 writeRaster(presentResult, filename = "griseoaurPresent", format = "GTiff", overwrite = T);
 #Projecting the ensemble model in the present
 myBiomodProjPresEnsemble <- BIOMOD_EnsembleForecasting(myMaxentEnsemble,
@@ -152,7 +153,7 @@ write.csv(variablePermutationImportance, "VariablePermutationImportance.csv", qu
 
 ##Calculate MESS for 2100
 mess2100 <- mess(proj.st, rasterToPoints(envt.st)[,-1:-2],-9999);
-writeRaster(mess2100, filename = "Tmelanoleuca2100MESS", format = "GTiff", overwrite = T);
+writeRaster(mess2100, filename = "GriseoAur2100MESS", format = "GTiff", overwrite = T);
 
 ##Create dataset for evaluation
 ###"Cutoff" gives threshold to optimize evaluation metric, "Sensitivity" and "Specificity" are based on this threshold
