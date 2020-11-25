@@ -1,3 +1,18 @@
+####        INSTITUTO TECNOLOGICO VALE - DESENVOLVIMENTO SUSTENTAVEL            ####
+#### P0S-GRADUACAO EM USO SUSTENTAVEL DE RECURSOS NATURAIS EM REGIOES TROPICAIS ####
+
+####          AULA PRATICA DE MODELOS DE DISTRIBUIÇÃO DE ESPECIES (SDM)         ####
+####                   PADRONIZACAO DOS DADOS AMBIENTAIS                        ####
+
+#### Scripts by Jeronymo Dalapicolla ####
+
+####### OBJETIVOS: PREPARAR AS VARIÁVEIS AMBIENTAIS PARA INPUT DOS MODELOS
+#######               A. Cortar as rasters usando uma mascara
+#######               B. Reprojetar as variaveis
+#######               C. Converter os rasters para o formato '.asc'
+
+
+
 ############ 1. INSTALACAO DOS PACOTES E CARREGAR AS FUNCOES AUXILIARES #############
 # Carregar os pacotes necessarios:
 library(rgdal)
@@ -7,17 +22,8 @@ library(raster)
 longlat_WGS = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
 UTM_proj = CRS("+proj=utm +zone=22 +south +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
 
-#ou criar uma a partir de codigo EPGS
-A = make_EPSG() 
-LL_prj = as.character(subset(A, A$code=="4326")[3]) 
-UTM_prj = as.character(subset(A, A$code=="5383")[3]) 
-
-
-
-
-
 ####################### 2. CARREGAR OS ARQUIVOS NECESSARIOS #########################
-#carregar um raster para representar a resolução que você deseja, no caso escolhemos a 'bio1.tiff' com quadrículas de 1Km²:
+#carregar um raster para representar a resolução que você deseja
 exemplo_res = raster("~/wc2.1_2.5m_MIROC/wc2.1_2.5m_bioc_MIROC6_ssp585_2081-2100.tif")
 crs(exemplo_res) = longlat_WGS
 
@@ -30,7 +36,7 @@ crs(camadas) = longlat_WGS
 camadas
 
 #carregar a mascara para representar a area de estudo:
-mascara = shapefile("~/Crowned/mascaras/mascara_SA.shp")
+mascara = shapefile("~/Crowned/mascaras/South_America.shp")
 #define a projection, the same one for all!!!!
 crs(mascara) = longlat_WGS
 plot(mascara)
