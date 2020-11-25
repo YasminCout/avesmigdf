@@ -23,6 +23,7 @@ longlat_WGS = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0
 UTM_proj = CRS("+proj=utm +zone=22 +south +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
 
 ####################### 2. CARREGAR OS ARQUIVOS NECESSARIOS #########################
+####### FAZER PARA O FUTURO E O PRESENTE
 #carregar um raster para representar a resolução que você deseja
 exemplo_res = raster("~/wc2.1_2.5m_MIROC/wc2.1_2.5m_bioc_MIROC6_ssp585_2081-2100.tif")
 crs(exemplo_res) = longlat_WGS
