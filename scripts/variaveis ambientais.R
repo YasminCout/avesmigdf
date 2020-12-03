@@ -11,8 +11,6 @@
 #######               B. Reprojetar as variaveis
 #######               C. Converter os rasters para o formato '.asc'
 
-
-
 ############ 1. INSTALACAO DOS PACOTES E CARREGAR AS FUNCOES AUXILIARES #############
 # Carregar os pacotes necessarios:
 library(rgdal)
@@ -42,10 +40,6 @@ mascara = shapefile("~/Crowned/mascaras/South_America.shp")
 crs(mascara) = longlat_WGS
 plot(mascara)
 
-
-
-
-
 ################# 3. ALTERAR A RESOLUCAO DAS VARIAVEIS AMBIENTAIS ###################
 #reduzir para a area de estudo a camada usada como exemplo para a resolucao. Isso reduzira o tempo das analises:
 exemplo_res_red = crop(exemplo_res, extent(mascara), snap="out") #cria uma area retangular
@@ -56,18 +50,11 @@ camadas_res = resample(camadas, exemplo_res_red, method="bilinear", bylayer=TRUE
 camadas_res
 plot(camadas_res[[1]])
 
-
-
-
-
 ############ 4. CORTAR AS VARIAVEIS AMBIENTAIS PARA A FORMA DA MASCARA ##############
 #Clip the resampled layers with the study area:
 camadas_res_mas = mask(camadas_res, mascara, bylayer=TRUE) #exactamente da forma da mascara
 plot(camadas_res_mas[[1]])
-
 plot(camadas_res)
-
-
 
 ######## 5. CONVERTER E SALVAR AS VARIAVEIS AMBIENTAIS PARA O FORMATO ASC ###########
 #Salvar como .ascii em uma nova pasta
