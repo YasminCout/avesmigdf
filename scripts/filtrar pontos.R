@@ -11,7 +11,6 @@
 #######               B. Remover pontos fora da mascara
 #######               C. Escolher um ponto de ocorrencia dentro de um buffer
 
-
 library(rgdal)
 library(raster)
 library(dismo)
@@ -19,7 +18,6 @@ library(dismo)
 #delimitar uma projecao espacial para lat/long e para UTM:
 longlat_WGS = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
 UTM_proj = CRS("+proj=utm +zone=22 +south +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
-
 
 ####################### 2. CARREGAR OS ARQUIVOS NECESSARIOS ########################
 # Carregar os pontos de ocorrencia:
@@ -42,10 +40,6 @@ pontos_unicos = pontos_brutos[!duplicated(pontos_brutos[c("LONGITUDE","LATITUDE"
 
 #numero de pontos unicos:
 length(pontos_unicos[, 1]) #55
-
-
-
-
 
 ##################### 4. REMOVER PONTOS FORA DA AREA DE ESTUDO #####################
 #numero de pontos unicos:
@@ -73,10 +67,6 @@ i #lines in the point_raw
 pontos_unicos_area = pontos_unicos
 #numero de pontos restantes:
 length(pontos_unicos_area[, 1]) #51
-
-
-
-
 
 ####### 5. REMOVER VIES AMOSTRAL QUE PODE LEVAR A AUTOCORRELACAO ESPACIAL ##########
 #transformar os pontos em SpatialPoints
