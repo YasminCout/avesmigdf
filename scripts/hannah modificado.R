@@ -121,7 +121,6 @@ ensembleResult2100 <- mod_proj2100Ensemble[[2]] #This is the median model ensemb
 plot(ensembleResult2100, main = "Em 2100 - Griseotyrannus Aurantioatrocristatus");
 writeRaster(ensembleResult2100, filename = "griseoaur2100Ensemble", format = "GTiff", overwrite = T);
 
-
 #Evaluating models
 ## Variable response curves
 response.plot2(models = BIOMOD_LoadModels(myMaxentModel, models='MAXENT.Phillips'),
