@@ -10,13 +10,13 @@ crowned <- cbind(crowned, rep.int(1, length(nrow(crowned)))); #Adds another colu
 colnames(crowned) <- c("X", "Y", "Response");
 
 #Get present environmental variables
-setwd("~/rstudio-projects/avesmigdf/envidata/climate/ascfiles/");
+setwd("~/rstudio-projects/avesmigdf/climatedata/present/asc/");
 envtList <- list.files(pattern = ".asc");
 envt.st <- stack(envtList);
 crs(envt.st) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
 
 #Get  future projection environmental variables
-setwd("~/Crowned/EnvironmentalData/Future/ssp585/2080_2100/")
+setwd("~/rstudio-projects/avesmigdf/climatedata/future/")
 projectionList <- list.files(pattern = ".asc");
 proj.st <- stack(projectionList);
 crs(proj.st) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
@@ -47,7 +47,7 @@ myBiomodOption@MAXENT.Phillips$visible = F;
 myBiomodOption@MAXENT.Phillips$beta_lqp = .95;
 
 #Running Maxent
-setwd("~/Crowned/TestModelRun/R/")
+setwd("~/rstudio-projects/avesmigdf/TestModelRun/R/")
 myMaxentModel <- BIOMOD_Modeling(data=bmData,
                                     models=c('MAXENT.Phillips'),
                                     models.options=myBiomodOption,
@@ -134,7 +134,7 @@ response.plot2(models = BIOMOD_LoadModels(myMaxentModel, models='MAXENT.Phillips
 );
 
 ##Varible contributions; only for Maxent, not possible for other models
-forSetup <- read.csv(file = paste("~/Crowned/TestModelRun/R/Crowned/models/1604549077/GriseoAur_PA1_RUN1_MAXENT.Phillips_outputs/maxentResults.csv", sep = ""), header = T)#Choose the appropriate model folder with the seed of the analysis you want
+forSetup <- read.csv(file = paste("~/rstudio-projects/avesmigdf/TestModelRun/R/GriseoAur/models/1611254316/GriseoAur_PA1_RUN1_MAXENT.Phillips_outputs/maxentResults.csv", sep = ""), header = T)#Choose the appropriate model folder with the seed of the analysis you want
 variableContributions <- matrix(data = NA, nrow = length(forSetup[, grep('.contribution', names(forSetup))]), ncol = 10);
 rownames(variableContributions) <- names(forSetup[, grep('.contribution', names(forSetup))])
 colnames(variableContributions) <- c("Run1", "Run2", "Run3", "Run4", "Run5", "Run6", "Run7", "Run8", "Run9", "Run10")
@@ -142,7 +142,7 @@ variablePermutationImportance <- matrix(data = NA, nrow = length(forSetup[, grep
 colnames(variablePermutationImportance) <- c("Run1", "Run2", "Run3", "Run4", "Run5", "Run6", "Run7", "Run8", "Run9", "Run10")
 count <- 1;
 while (count <= 10){
-  temporary <- read.csv(file = paste("~/Crowned/TestModelRun/R/Crowned/models/1604549077/GriseoAur_PA1_RUN", count, "_MAXENT.Phillips_outputs/maxentResults.csv", sep = ""), header = T);
+  temporary <- read.csv(file = paste("~/rstudio-projects/avesmigdf/TestModelRun/R/GriseoAur/models/1611254316/GriseoAur_PA1_RUN", count, "_MAXENT.Phillips_outputs/maxentResults.csv", sep = ""), header = T);
   variableContributions[,count] <- unlist(unname(temporary[, grep('.contribution', names(temporary))]))
   variablePermutationImportance[,count] <- unlist(unname(temporary[, grep('.permutation.importance', names(temporary))]))
   count <- count + 1;
