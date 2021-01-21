@@ -28,7 +28,7 @@ exemplo_res = raster("~/rstudio-projects/avesmigdf/climatedata/wc2.1_2.5m_bioc_M
 crs(exemplo_res) = longlat_WGS
 
 #carregar todas os arquivos rasters de uma pasta, selecionando pelo formato. Recursive = TRUE incluirá todas as subpastas, As camadas devem estar na mesma resolução. Mude o p"pattern" para o formato dos rasters
-camadas = list.files(path="~/rstudio-projects/avesmigdf/climatedata/", pattern =".tif", full.names=TRUE)
+camadas = list.files(path="~/rstudio-projects/avesmigdf/climatedata/present/", pattern =".tif", full.names=TRUE)
 camadas = stack(camadas)
 #definir a projecao:
 crs(camadas) = longlat_WGS
@@ -59,4 +59,4 @@ plot(camadas_res)
 
 ######## 5. CONVERTER E SALVAR AS VARIAVEIS AMBIENTAIS PARA O FORMATO ASC ###########
 #Salvar como .ascii em uma nova pasta
-writeRaster(camadas_res, paste0("~/rstudio-projects/avesmigdf/climatedata/future/", paste0("bio",".asc")), driver='ascii', bylayer=TRUE)
+writeRaster(camadas_res, paste0("~/rstudio-projects/avesmigdf/climatedata/present/asc/", paste0("bio",".asc")), driver='ascii', bylayer=TRUE)
