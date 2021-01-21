@@ -14,6 +14,7 @@
 library(rgdal)
 library(raster)
 library(dismo)
+library(rgeos)
 
 #delimitar uma projecao espacial para lat/long e para UTM:
 longlat_WGS = CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
@@ -26,7 +27,7 @@ head(pontos_brutos)
 str(pontos_brutos)
 
 # Carregar a camada ambiental em 'asc' ja editada para servir como modelo
-variavel = raster("bio_1.asc")
+variavel = raster("~/rstudio-projects/avesmigdf/climatedata/future/bio_1.asc")
 crs(variavel) = longlat_WGS
 variavel
 plot(variavel)
